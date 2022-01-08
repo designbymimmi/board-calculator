@@ -1,7 +1,6 @@
 // General elements
 const nextBtn = document.querySelector(".next-btn");
 const returnBtn = document.querySelector(".return-btn");
-
 const errorMessage = document.querySelector(".error-message");
 const formHeading = document.querySelector("h2");
 const currentStep = document.querySelector(".current-step");
@@ -21,11 +20,14 @@ const sliderFt = document.querySelector(".slider-ft");
 const sliderInches = document.querySelector(".slider-inches");
 
 const sliderCmDisplayValue = document.querySelector(".display-cm-value");
+// Display slider value
 sliderCmDisplayValue.innerText = sliderCm.value;
 
 const sliderFtDisplayValue = document.querySelector(".display-ft-value");
+// Display slider value
 sliderFtDisplayValue.innerText = sliderFt.value;
 const sliderInchesDisplayValue = document.querySelector(".display-inches-value");
+// Display slider value
 sliderInchesDisplayValue.innerText = sliderInches.value;
 
 // Select weight elements
@@ -37,34 +39,13 @@ sliderKgDisplayValue.innerText = sliderKg.value;
 const sliderLbsDisplayValue = document.querySelector(".display-lbs-value");
 sliderLbsDisplayValue.innerText = sliderLbs.value;
 
-// Default innerText for riding style sliders
-document.querySelector(".display-slope-value").innerText = "Sometimes";
-document.querySelector(".display-park-value").innerText = "Sometimes";
-document.querySelector(".display-powder-value").innerText = "Sometimes";
-
-// Variables to store user data and display result
-//...gender
-let gender;
-//...metric or imperial
+// Initialise metric as default choice
 let metricTicked = true;
-//...height
-let height;
-//...weight
-let weight;
-//...skill level
-let skillLevel;
-//...riding style
-let ridingStyleSlope;
-let ridingStylePark;
-let ridingStylePowder;
-let ridingStyleResult;
-//...result
-let boardLength;
-let boardShape;
 
 // ---------------------- STEP 1: Select Gender ----------------------------
 // Grab gender and assign value to gender variable
 const getGender = function() {
+  let gender;
   if (document.querySelector("#woman").checked == true) {
     gender = "Women";
   } else if (document.querySelector("#man").checked == true) {
@@ -168,6 +149,7 @@ sliderInches.oninput = function() {
 
 // Grab height and assign value to height variable
 const getHeight = function() {
+  let height;
   if (!heightSliderMetric.classList.contains("hide")) {
     height = sliderCm.value;
   }
@@ -191,6 +173,7 @@ sliderLbs.oninput = function() {
 }
 
 const getWeight = function() {
+  let weight;
   if (!document.querySelector(".slider-metric-weight").classList.contains("hide")) {
     weight = sliderKg.value;
   }
@@ -205,6 +188,7 @@ const getWeight = function() {
 // ---------------------- STEP 4: Select Skill Level  ----------------------------
 // Grab skill level selected and assign value to skill level variable
 const getSkillLevel = function() {
+  let skillLevel;
   if (document.querySelector("#beginner").checked == true) {
     skillLevel = "beginner";
   } else if (document.querySelector("#intermediate").checked == true) {
@@ -254,9 +238,9 @@ document.querySelector(".slider-powder").oninput = function() {
 }
 
 const getRidingStyle = function() {
-  ridingStyleSlope = document.querySelector(".slider-slope").value;
-  ridingStylePark = document.querySelector(".slider-park").value;
-  ridingStylePowder = document.querySelector(".slider-powder").value;
+  let ridingStyleSlope = document.querySelector(".slider-slope").value;
+  let ridingStylePark = document.querySelector(".slider-park").value;
+  let ridingStylePowder = document.querySelector(".slider-powder").value;
 
   return ridingStyleSlope, ridingStylePark, ridingStylePowder;
 }
@@ -265,6 +249,7 @@ const getRidingStyle = function() {
 
 // Calculate recommended board type
 const calcBoardType = function(groomed, terrain, powder) {
+  let ridingStyleResult;
   // freestyle board type
   if (terrain > powder && terrain > groomed) {
     ridingStyleResult = "freestyle";
@@ -277,10 +262,13 @@ const calcBoardType = function(groomed, terrain, powder) {
   else {
     ridingStyleResult = "all mountain";
   }
+
+  return ridingStyleResult;
 }
 
 // Calculate board length
 const calcBoardLength = function(height) {
+  let boardLength;
   // Add to length if BMI on weight is 25 or over
   let bmi = weight / ((height/ 100) ** 2);
   if (bmi >= 25) {
@@ -320,6 +308,8 @@ const calcBoardLength = function(height) {
       boardLength -= 4;
     }
   }
+
+  return boardLength;
 }
 
 
